@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>财运签 · 古风求签</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 背景粒子 -->
+  <div class="particles" id="particles"></div>
+
+  <!-- 音乐控制按钮（印章 Logo） -->
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="背景音乐">
+    <!-- 印章风格 SVG logo，静音时半透明，播放时全彩 -->
+    <svg id="musicLogo" class="music-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- 外框 -->
+      <rect x="4" y="4" width="92" height="92" rx="14" ry="14"
+            fill="#8B1A1A" />
+      <!-- 左上横笔画组 -->
+      <rect x="12" y="11" width="36" height="7" rx="3.5" fill="white"/>
+      <rect x="12" y="22" width="36" height="7" rx="3.5" fill="white"/>
+      <!-- 左下"皿"形 -->
+      <rect x="12" y="34" width="36" height="6" rx="3" fill="white"/>
+      <rect x="17" y="43" width="8"  height="18" rx="3" fill="white"/>
+      <rect x="30" y="43" width="8"  height="18" rx="3" fill="white"/>
+      <rect x="11" y="63" width="38" height="7" rx="3.5" fill="white"/>
+      <!-- 右上横笔画组 -->
+      <rect x="54" y="11" width="32" height="7" rx="3.5" fill="white"/>
+      <rect x="54" y="22" width="32" height="7" rx="3.5" fill="white"/>
+      <rect x="54" y="33" width="32" height="7" rx="3.5" fill="white"/>
+      <!-- 右下"囧"形 -->
+      <rect x="54" y="44" width="32" height="6"  rx="3" fill="white"/>
+      <rect x="54" y="54" width="13" height="16" rx="3" fill="white"/>
+      <rect x="73" y="54" width="13" height="16" rx="3" fill="white"/>
+      <rect x="54" y="73" width="32" height="7"  rx="3.5" fill="white"/>
+    </svg>
+    <!-- 静音遮罩：一条斜线 -->
+    <svg id="muteSlash" class="mute-slash" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <line x1="15" y1="15" x2="85" y2="85" stroke="rgba(255,255,255,0.85)" stroke-width="8" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- 主容器 -->
+  <div class="container">
+
+    <!-- 顶部装饰 -->
+    <div class="header-deco">
+      <span class="deco-line"></span>
+      <span class="deco-text">❧</span>
+      <span class="deco-line"></span>
+    </div>
+
+    <!-- 标题 -->
+    <div class="title-area">
+      <h1 class="main-title">财运签</h1>
+      <p class="sub-title">诚心求签，财运自来</p>
+    </div>
+
+    <!-- 底部装饰 -->
+    <div class="header-deco" style="margin-bottom: 0;">
+      <span class="deco-line"></span>
+      <span class="deco-text">❧</span>
+      <span class="deco-line"></span>
+    </div>
+
+    <!-- 香炉区域 -->
+    <div class="incense-area">
+      <div class="smoke" id="smoke1"></div>
+      <div class="smoke" id="smoke2"></div>
+      <div class="smoke" id="smoke3"></div>
+      <div class="incense-burner">🏮</div>
+    </div>
+
+    <!-- 签筒区域 -->
+    <div class="stage" id="stage">
+
+      <!-- 初始状态：签筒 -->
+      <div class="qian-tube-wrap" id="tubeWrap">
+        <div class="qian-tube" id="qianTube">
+          <div class="tube-body">
+            <div class="tube-pattern">签</div>
+          </div>
+          <div class="tube-sticks">
+            <div class="stick s1"></div>
+            <div class="stick s2"></div>
+            <div class="stick s3"></div>
+            <div class="stick s4"></div>
+            <div class="stick s5"></div>
+          </div>
+        </div>
+        <p class="shake-hint" id="shakeHint">请诚心摇签</p>
+      </div>
+
+      <!-- 摇签动画遮罩文字 -->
+      <div class="shaking-overlay" id="shakingOverlay" style="display:none">
+        <div class="shaking-text">
+          <span>诚</span><span>心</span><span>祈</span><span>求</span>
+          <span>中</span><span>⋯</span>
+        </div>
+        <div class="countdown" id="countdown">5</div>
+      </div>
+
+      <!-- 签文结果 -->
+      <div class="result-card" id="resultCard" style="display:none">
+        <div class="result-header">
+          <div class="result-num" id="resultNum">第一签</div>
+          <div class="result-level" id="resultLevel">上上签</div>
+        </div>
+        <div class="result-divider">
+          <span>✦</span><span class="divider-line"></span><span>✦</span>
+        </div>
+        <div class="result-poem" id="resultPoem"></div>
+        <div class="result-divider">
+          <span>✦</span><span class="divider-line"></span><span>✦</span>
+        </div>
+        <div class="result-title">解签</div>
+        <div class="result-text" id="resultText"></div>
+        <div class="result-fortune">
+          <div class="fortune-item" id="fortuneFinance"></div>
+          <div class="fortune-item" id="fortuneBusiness"></div>
+          <div class="fortune-item" id="fortuneLucky"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 按钮区域 -->
+    <div class="btn-area" id="btnArea">
+      <button class="shake-btn" id="shakeBtn" onclick="startShake()">
+        <span class="btn-icon">🙏</span>
+        <span class="btn-text">摇签求财</span>
+      </button>
+    </div>
+
+    <div class="again-area" id="againArea" style="display:none">
+      <button class="again-btn" onclick="resetGame()">
+        <span>🔄</span> 再求一签
+      </button>
+    </div>
+
+    <!-- 底部装饰 -->
+    <div class="footer-deco">
+      <span>— 银泰工艺，铸就非凡 —</span>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
